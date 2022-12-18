@@ -1,0 +1,12 @@
+<launch>
+  <arg name="scan_topic"  default="/scan" />
+  <arg name="use_rviz"    default="false" />
+
+  <node pkg="rviz" type="rviz" name="rviz" />
+
+  <node pkg="gmapping" type="slam_gmapping" name="slam_gmapping">
+    <remap from="scan" to="$(arg scan_topic)" />
+    <rosparam file="$(find diff_slam)/params/gmapping_params.yaml" command="load" />
+  </node>
+
+</launch>

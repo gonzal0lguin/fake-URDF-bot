@@ -1,0 +1,15 @@
+<launch>
+    <!-- Arguments -->
+    <arg name="move_forward_only" default="true"/>
+    <arg name="map_name"  default="room"/>
+
+  	<!-- Map Server -->
+    <node pkg="map_server" type="map_server" name="map_server_2"
+		respawn="true" args="$(find diff_slam)/maps/$(arg map_name).yaml"/>
+
+    <!-- move_base -->
+    <include file="$(find diff_slam)/launch/navigation/move_base.launch">
+        <arg name="move_forward_only" value="$(arg move_forward_only)"/>
+    </include>
+
+</launch>

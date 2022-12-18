@@ -1,0 +1,15 @@
+<launch>
+    <arg name="map_file"  default="$(find diff_slam)/maps/room.yaml"/>
+    <arg name="scan_topic" default="/scan" />
+    
+    <!-- static map server -->
+    <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+
+    <!-- amcl -->
+    <node pkg="amcl" type="amcl" name="amcl" respawn="true" output="screen">
+        <remap from="/scan" to="$(arg scan_topic)"/>
+        <remap from="map" to="/map"/>
+        <rosparam file="$(find diff_slam)/params/amcl.yaml" command="load"/>
+    </node>
+
+</launch>
